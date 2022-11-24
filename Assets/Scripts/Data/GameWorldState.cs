@@ -8,11 +8,13 @@ namespace Data
         public int Score;
         public float VerticalGameOverLimit { get; private set; }
         public Vector2 HorizontalScreenLimits { get; private set; }
+        public float TopOfScreen { get; private set; }
 
-        public void Initialize(Vector2 horizontalLimit, float verticalLimit)
+        public void Initialize(Vector2 horizontalLimits, Vector2 verticalLimits)
         {
-            HorizontalScreenLimits = horizontalLimit;
-            VerticalGameOverLimit = verticalLimit;
+            HorizontalScreenLimits = horizontalLimits;
+            VerticalGameOverLimit = verticalLimits.x;
+            TopOfScreen = verticalLimits.y;
         }
     }
 }

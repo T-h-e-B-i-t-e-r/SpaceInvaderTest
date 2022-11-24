@@ -12,6 +12,7 @@ namespace Monobehaviors
 {
     public class GameplayEntryScript : MonoBehaviour
     {
+        // local
         [SerializeField] private Camera _gameplayCamera;
         [SerializeField] private TextMeshProUGUI _enemyCountLabel;
         [SerializeField] private TextMeshProUGUI _scoreLabel;
