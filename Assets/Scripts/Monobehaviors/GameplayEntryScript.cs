@@ -19,7 +19,7 @@ namespace Monobehaviors
         [SerializeField] private Transform _enemyPoolParent;
         [SerializeField] private int _enemyCount = 50;
         [SerializeField] private Transform _bulletPoolParent;
-        [SerializeField] private int _bulletCount = 20;
+        [SerializeField] private int _bulletCount = 10;
         
         // injections
         private GameWorldStateManager _gameWorldStateManager;

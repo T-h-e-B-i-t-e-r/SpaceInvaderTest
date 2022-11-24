@@ -737,7 +737,7 @@ MonoBehaviour:
   _enemyPoolParent: {fileID: 419443638}
   _enemyCount: 50
   _bulletPoolParent: {fileID: 977636818}
-  _bulletCount: 20
+  _bulletCount: 10
 --- !u!1 &1719275625
 GameObject:
   m_ObjectHideFlags: 0

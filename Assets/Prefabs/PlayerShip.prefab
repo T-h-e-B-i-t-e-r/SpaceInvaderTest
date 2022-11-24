@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 2
-  _firingRate: 1
+  _firingRate: 0.5
 --- !u!212 &6884060743005666786
 SpriteRenderer:
   m_ObjectHideFlags: 0

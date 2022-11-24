@@ -30,7 +30,7 @@ namespace Monobehaviors.Entities
             _topLimit = _gameWorldStateManager.GameWorldState.TopOfScreen;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             Vector3 position = _rigidbody2D.position;
             float targetY = position.y;
