@@ -1,5 +1,6 @@
 using Factories;
 using Managers;
+using Monobehaviors.Entities;
 using Zenject;
 
 namespace Installers
@@ -10,8 +11,8 @@ namespace Installers
         {
             Container.Bind<GameWorldStateManager>().AsSingle().NonLazy();
             Container.Bind<GameObjectFactory>().AsSingle().NonLazy();
-            Container.Bind<EntityPoolManager>().WithId("Enemy").AsCached().NonLazy();
-            Container.Bind<EntityPoolManager>().WithId("Bullet").AsCached().NonLazy();
+            Container.Bind<EntityPoolManager<EnemyShip>>().AsCached().NonLazy();
+            Container.Bind<EntityPoolManager<Bullet>>().AsCached().NonLazy();
         }
     }
 }

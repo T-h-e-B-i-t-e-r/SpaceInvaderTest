@@ -13,12 +13,12 @@ namespace Monobehaviors.Entities
         
         // injections
         private GameWorldStateManager _gameWorldStateManager;
-        private EntityPoolManager _bulletPoolManager;
+        private EntityPoolManager<Bullet> _bulletPoolManager;
         
         [Inject]
         private void InjectDependencies(
             GameWorldStateManager gameWorldStateManager,
-            [Inject(Id = "Bullet")]EntityPoolManager bulletPoolManager
+            EntityPoolManager<Bullet> bulletPoolManager
         )
         {
             _gameWorldStateManager = gameWorldStateManager;
@@ -42,13 +42,13 @@ namespace Monobehaviors.Entities
             }
             else
             {
-                _bulletPoolManager.ReturnObjectToPool(gameObject);
+                _bulletPoolManager.ReturnObjectToPool(this);
             }
         }
 
         private void OnCollisionEnter2D(Collision2D col)
         {
-            _bulletPoolManager.ReturnObjectToPool(gameObject);
+            _bulletPoolManager.ReturnObjectToPool(this);
         }
     }
 }

@@ -24,15 +24,15 @@ namespace Monobehaviors
         // injections
         private GameWorldStateManager _gameWorldStateManager;
         private GameObjectFactory _gameObjectFactory;
-        private EntityPoolManager _enemyPoolManager;
-        private EntityPoolManager _bulletPoolManager;
+        private EntityPoolManager<EnemyShip> _enemyPoolManager;
+        private EntityPoolManager<Bullet> _bulletPoolManager;
         
         [Inject]
         private void InjectDependencies(
             GameWorldStateManager gameWorldStateManager,
             GameObjectFactory gameObjectFactory,
-            [Inject(Id = "Enemy")]EntityPoolManager enemyPoolManager,
-            [Inject(Id = "Bullet")]EntityPoolManager bulletPoolManager
+            EntityPoolManager<EnemyShip> enemyPoolManager,
+            EntityPoolManager<Bullet> bulletPoolManager
             )
         {
             _gameWorldStateManager = gameWorldStateManager;

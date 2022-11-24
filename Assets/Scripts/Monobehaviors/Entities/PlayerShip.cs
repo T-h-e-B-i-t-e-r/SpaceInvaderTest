@@ -16,12 +16,12 @@ namespace Monobehaviors.Entities
         
         // injections
         private GameWorldStateManager _gameWorldStateManager;
-        private EntityPoolManager _bulletPoolManager;
+        private EntityPoolManager<Bullet> _bulletPoolManager;
         
         [Inject]
         private void InjectDependencies(
             GameWorldStateManager gameWorldStateManager,
-            [Inject(Id = "Bullet")]EntityPoolManager bulletPoolManager
+            EntityPoolManager<Bullet> bulletPoolManager
         )
         {
             _gameWorldStateManager = gameWorldStateManager;
