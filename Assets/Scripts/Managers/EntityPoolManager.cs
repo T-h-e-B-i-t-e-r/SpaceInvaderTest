@@ -18,7 +18,7 @@ namespace Managers
         {
             _parent = parent;
             _amountToCreate = count;
-            Addressables.LoadAssetAsync<GameObject>(addressableKey).Completed += OnGameObjectLoaded;
+            Addressables.LoadAssetAsync<GameObject>(addressableKey).Completed += OnGameObjectLoaded; // TODO: cleanup addressable references
         }
 
         private void OnGameObjectLoaded(AsyncOperationHandle<GameObject> asyncOperationHandle)
