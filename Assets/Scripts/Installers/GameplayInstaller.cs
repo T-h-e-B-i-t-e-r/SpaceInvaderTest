@@ -1,4 +1,5 @@
 using Factories;
+using Managers;
 using Zenject;
 
 namespace Installers
@@ -7,7 +8,10 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<EnemyShipFactory>().AsSingle().NonLazy();
+            Container.Bind<GameWorldStateManager>().AsSingle().NonLazy();
+            Container.Bind<GameObjectFactory>().AsSingle().NonLazy();
+            Container.Bind<EntityPoolManager>().WithId("Enemy").AsCached().NonLazy();
+            Container.Bind<EntityPoolManager>().WithId("Bullet").AsCached().NonLazy();
         }
     }
 }

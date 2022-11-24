@@ -11,7 +11,7 @@ namespace Monobehaviors
         
         void Start()
         {
-            _loader.LoadScene(SceneConstants.MainMenuScene);
+            _loader.LoadScene(AddressablesConstants.MainMenuScene);
         }
     }
 }

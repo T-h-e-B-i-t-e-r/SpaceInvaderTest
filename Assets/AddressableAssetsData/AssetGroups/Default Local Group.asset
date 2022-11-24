@@ -29,6 +29,14 @@ MonoBehaviour:
     m_Address: GameOverScene
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d42ac6857cd42354389a53ea7cdade73
+    m_Address: EnemyShipWeak
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8e867ac85862f0c45a6ef265bddb17df
+    m_Address: Bullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e4eee48dd72836147a0ba66e39d789f0, type: 2}
   m_SchemaSet:
