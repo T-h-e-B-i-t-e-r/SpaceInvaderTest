@@ -12,7 +12,7 @@ namespace Monobehaviors
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            _sceneLoader.LoadScene(AddressablesConstants.GameplayScene);
+            _sceneLoader.LoadScene(GameConstants.GameplayScene);
         }
     }
 }

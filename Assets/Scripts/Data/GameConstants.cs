@@ -1,6 +1,6 @@
 namespace Data
 {
-    public class AddressablesConstants
+    public class GameConstants
     {
         // scene addressable keys
         public const string MainMenuScene = "MainMenuScene";
@@ -11,5 +11,9 @@ namespace Data
         public const string PlayerPrefab = "PlayerShip";
         public const string EnemyPrefab = "EnemyShipWeak";
         public const string BulletPrefab = "Bullet";
+        
+        // UI text
+        public const string EnemyCountLabel = "Enemies: {0}";
+        public const string ScoreLabel = "Score: {0}";
     }
 }

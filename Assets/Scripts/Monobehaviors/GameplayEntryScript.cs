@@ -51,15 +51,17 @@ namespace Monobehaviors
 
         private void InitializeGameWorld()
         {
-            _gameWorldStateManager.Initialize(_gameplayCamera, _enemyCount);
+            UpdateEnemyLabel(_enemyCount);
+            UpdateScoreLabel(0);
+            _gameWorldStateManager.Initialize(_gameplayCamera, _enemyCount, UpdateEnemyLabel, UpdateScoreLabel);
             CreatePlayer();
-            _enemyPoolManager.Initialize(AddressablesConstants.EnemyPrefab, _enemyCount, _enemyPoolParent, InitializeEnemySpawner);
-            _bulletPoolManager.Initialize(AddressablesConstants.BulletPrefab, _bulletCount, _bulletPoolParent);
+            _enemyPoolManager.Initialize(GameConstants.EnemyPrefab, _enemyCount, _enemyPoolParent, InitializeEnemySpawner);
+            _bulletPoolManager.Initialize(GameConstants.BulletPrefab, _bulletCount, _bulletPoolParent);
         }
 
         private void CreatePlayer()
         {
-            Addressables.LoadAssetAsync<GameObject>(AddressablesConstants.PlayerPrefab).Completed += OnPlayerObjectLoaded; // TODO: probably wrap this in its own loader class
+            Addressables.LoadAssetAsync<GameObject>(GameConstants.PlayerPrefab).Completed += OnPlayerObjectLoaded; // TODO: probably wrap this in its own loader class
         }
 
         private void OnPlayerObjectLoaded(AsyncOperationHandle<GameObject> asyncOperationHandle)
@@ -76,6 +78,16 @@ namespace Monobehaviors
         private void InitializeEnemySpawner()
         {
             _enemyShipSpawner.Initialize();
+        }
+
+        private void UpdateEnemyLabel(int enemyCount)
+        {
+            _enemyCountLabel.text = string.Format(GameConstants.EnemyCountLabel, enemyCount);
+        }
+
+        private void UpdateScoreLabel(int score)
+        {
+            _scoreLabel.text = string.Format(GameConstants.ScoreLabel, score);
         }
     }
 }
