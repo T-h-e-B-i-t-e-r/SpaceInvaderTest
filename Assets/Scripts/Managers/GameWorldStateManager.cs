@@ -11,7 +11,7 @@ namespace Managers
         public GameWorldState GameWorldState => _gameWorldState;
         public Camera GamePlayCamera => _gameplayCamera;
         
-        public void Initialize(Camera gameplayCamera)
+        public void Initialize(Camera gameplayCamera, int enemyCount)
         {
             _gameplayCamera = gameplayCamera;
             
@@ -24,8 +24,21 @@ namespace Managers
              
             Vector2 verticalLimits = new Vector2(verticalGameOverLimit, topLimit);
             
-            _gameWorldState = new GameWorldState();
-            _gameWorldState.Initialize(horizontalScreenLimits, verticalLimits);
+            _gameWorldState = new GameWorldState(horizontalScreenLimits, verticalLimits, enemyCount);
+        }
+
+        public void RegisterEnemyDestroyed()
+        {
+            _gameWorldState.EnemyCount--;
+            CheckGameOutcome();
+        }
+
+        private void CheckGameOutcome()
+        {
+            if (_gameWorldState.EnemyCount <= 0)
+            {
+                Debug.LogError("you win");
+            }
         }
     }
 }

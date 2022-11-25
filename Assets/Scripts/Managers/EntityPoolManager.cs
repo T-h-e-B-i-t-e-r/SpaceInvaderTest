@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Factories;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Zenject;
 
@@ -15,11 +16,13 @@ namespace Managers
         private Transform _parent;
         private int _amountToCreate;
         private List<T> _availablePooledObjects = new List<T>();
+        private UnityAction _onCompleteCallback;
         
-        public void Initialize(string addressableKey, int count, Transform parent)
+        public void Initialize(string addressableKey, int count, Transform parent, UnityAction onCompleteCallback = null)
         {
             _parent = parent;
             _amountToCreate = count;
+            _onCompleteCallback = onCompleteCallback;
             Addressables.LoadAssetAsync<GameObject>(addressableKey).Completed += OnGameObjectLoaded; // TODO: cleanup addressable references
         }
 
@@ -35,10 +38,23 @@ namespace Managers
                     var go = _gameObjectFactory.CreateGameObject(_parent, _loadedGameObject);
                     _availablePooledObjects.Add(go.GetComponent<T>());
                 }
+                
+                _onCompleteCallback?.Invoke();
             }
         }
 
-        public T GetGameObjectFromPool(Transform newParent)
+        public T PeekObjectFromPool()
+        {
+            if (_availablePooledObjects.Count > 0)
+            {
+                var obj = _availablePooledObjects[0];
+                return obj;
+            }
+
+            return null;
+        }
+        
+        public T GetObjectFromPool(Transform newParent)
         {
             if (_availablePooledObjects.Count > 0)
             {

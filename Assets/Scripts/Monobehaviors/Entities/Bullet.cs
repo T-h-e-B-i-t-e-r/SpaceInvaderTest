@@ -7,7 +7,7 @@ namespace Monobehaviors.Entities
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private float _speed = 4f;
+        [SerializeField] private float _speed;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         private float _topLimit;
         

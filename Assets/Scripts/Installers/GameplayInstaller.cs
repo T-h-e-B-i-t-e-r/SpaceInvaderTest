@@ -11,8 +11,9 @@ namespace Installers
         {
             Container.Bind<GameWorldStateManager>().AsSingle().NonLazy();
             Container.Bind<GameObjectFactory>().AsSingle().NonLazy();
-            Container.Bind<EntityPoolManager<EnemyShip>>().AsCached().NonLazy();
-            Container.Bind<EntityPoolManager<Bullet>>().AsCached().NonLazy();
+            Container.Bind<EntityPoolManager<EnemyShip>>().AsSingle().NonLazy();
+            Container.Bind<EntityPoolManager<Bullet>>().AsSingle().NonLazy();
+            Container.Bind<EnemyShipSpawner>().AsSingle().NonLazy();
         }
     }
 }

@@ -26,19 +26,22 @@ namespace Monobehaviors
         private GameObjectFactory _gameObjectFactory;
         private EntityPoolManager<EnemyShip> _enemyPoolManager;
         private EntityPoolManager<Bullet> _bulletPoolManager;
+        private EnemyShipSpawner _enemyShipSpawner;
         
         [Inject]
         private void InjectDependencies(
             GameWorldStateManager gameWorldStateManager,
             GameObjectFactory gameObjectFactory,
             EntityPoolManager<EnemyShip> enemyPoolManager,
-            EntityPoolManager<Bullet> bulletPoolManager
+            EntityPoolManager<Bullet> bulletPoolManager,
+            EnemyShipSpawner enemyShipSpawner
             )
         {
             _gameWorldStateManager = gameWorldStateManager;
             _gameObjectFactory = gameObjectFactory;
             _enemyPoolManager = enemyPoolManager;
             _bulletPoolManager = bulletPoolManager;
+            _enemyShipSpawner = enemyShipSpawner;
         }
         
         private void Start()
@@ -48,9 +51,9 @@ namespace Monobehaviors
 
         private void InitializeGameWorld()
         {
-            _gameWorldStateManager.Initialize(_gameplayCamera);
+            _gameWorldStateManager.Initialize(_gameplayCamera, _enemyCount);
             CreatePlayer();
-            _enemyPoolManager.Initialize(AddressablesConstants.EnemyPrefab, _enemyCount, _enemyPoolParent);
+            _enemyPoolManager.Initialize(AddressablesConstants.EnemyPrefab, _enemyCount, _enemyPoolParent, InitializeEnemySpawner);
             _bulletPoolManager.Initialize(AddressablesConstants.BulletPrefab, _bulletCount, _bulletPoolParent);
         }
 
@@ -69,6 +72,11 @@ namespace Monobehaviors
                 playerGo.transform.position = _gameplayCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.05f, 1)); // bottom 5% of screen, in the middle
                 playerGo.GetComponent<PlayerShip>().Initialize();
             }
+        }
+
+        private void InitializeEnemySpawner()
+        {
+            _enemyShipSpawner.Initialize();
         }
     }
 }

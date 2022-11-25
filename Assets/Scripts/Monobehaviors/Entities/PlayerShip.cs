@@ -7,11 +7,10 @@ namespace Monobehaviors.Entities
     public class PlayerShip : MonoBehaviour
     {
         // local
-        [SerializeField] private float _speed = 2f;
-        [SerializeField] private float _firingRate = 1f;
+        [SerializeField] private float _speed;
+        [SerializeField] private float _firingRate;
         private Camera _gameplayCamera;
         private float _firingCounter;
-        private float _shipWidth;
         private Vector2 _horizontalLimits;
         
         // injections
@@ -32,9 +31,9 @@ namespace Monobehaviors.Entities
         {
             _gameplayCamera = _gameWorldStateManager.GamePlayCamera;
             _firingCounter = 0;
-            _shipWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x / 2 * transform.localScale.x;
-            _horizontalLimits = new Vector2(_gameWorldStateManager.GameWorldState.HorizontalScreenLimits.x + _shipWidth,
-                _gameWorldStateManager.GameWorldState.HorizontalScreenLimits.y - _shipWidth);
+            var shipHalfWidth = GetComponent<SpriteRenderer>().sprite.bounds.size.x / 2 * transform.localScale.x;
+            _horizontalLimits = new Vector2(_gameWorldStateManager.GameWorldState.HorizontalScreenLimits.x + shipHalfWidth,
+                _gameWorldStateManager.GameWorldState.HorizontalScreenLimits.y - shipHalfWidth);
         }
         
         // Update is called once per frame
@@ -70,8 +69,12 @@ namespace Monobehaviors.Entities
 
         private void FireBullet()
         {
-            var bullet = _bulletPoolManager.GetGameObjectFromPool(null);
-            bullet.transform.position = transform.position;
+            var bullet = _bulletPoolManager.GetObjectFromPool(null);
+
+            if (bullet != null)
+            {
+                bullet.transform.position = transform.position;
+            }
         }
     }
 }
