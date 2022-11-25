@@ -27,7 +27,7 @@ namespace Monobehaviors.Entities
             _bulletPoolManager = bulletPoolManager;
         }
 
-        public void Initialize()
+        private void Awake()
         {
             _gameplayCamera = _gameWorldStateManager.GamePlayCamera;
             _firingCounter = 0;

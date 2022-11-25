@@ -25,12 +25,12 @@ namespace Monobehaviors.Entities
             _bulletPoolManager = bulletPoolManager;
         }
 
-        private void Start()
+        private void Awake()
         {
             _topLimit = _gameWorldStateManager.GameWorldState.TopOfScreen;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             Vector3 position = _rigidbody2D.position;
             float targetY = position.y;

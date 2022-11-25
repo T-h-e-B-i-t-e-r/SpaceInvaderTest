@@ -17,9 +17,9 @@ namespace Monobehaviors
         [SerializeField] private TextMeshProUGUI _enemyCountLabel;
         [SerializeField] private TextMeshProUGUI _scoreLabel;
         [SerializeField] private Transform _enemyPoolParent;
-        [SerializeField] private int _enemyCount = 50;
+        [SerializeField] private int _enemyCount;
         [SerializeField] private Transform _bulletPoolParent;
-        [SerializeField] private int _bulletCount = 10;
+        [SerializeField] private int _bulletCount;
         
         // injections
         private GameWorldStateManager _gameWorldStateManager;
@@ -70,7 +70,6 @@ namespace Monobehaviors
                 var loadedPlayerPrefab = asyncOperationHandle.Result;
                 var playerGo = _gameObjectFactory.CreateGameObject(null, loadedPlayerPrefab);
                 playerGo.transform.position = _gameplayCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.05f, 1)); // bottom 5% of screen, in the middle
-                playerGo.GetComponent<PlayerShip>().Initialize();
             }
         }
 

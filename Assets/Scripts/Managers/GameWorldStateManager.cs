@@ -33,6 +33,11 @@ namespace Managers
             CheckGameOutcome();
         }
 
+        public void TriggerGameOver()
+        {
+            Debug.LogError("you lose");
+        }
+
         private void CheckGameOutcome()
         {
             if (_gameWorldState.EnemyCount <= 0)
