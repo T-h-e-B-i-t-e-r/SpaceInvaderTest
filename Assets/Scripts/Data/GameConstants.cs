@@ -14,6 +14,9 @@ namespace Data
         
         // UI text
         public const string EnemyCountLabel = "Enemies: {0}";
+        public const string EnemyDefeatedLabel = "Enemies Defeated: {0}";
         public const string ScoreLabel = "Score: {0}";
+        public const string YouWin = "You Win!";
+        public const string YouLose = "You Lose!";
     }
 }

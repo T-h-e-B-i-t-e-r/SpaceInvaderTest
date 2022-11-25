@@ -1,4 +1,3 @@
-using System;
 using Managers;
 using UnityEngine;
 using Zenject;
@@ -7,7 +6,8 @@ namespace Monobehaviors.Entities
 {
     public class EnemyShip : MonoBehaviour
     {
-        [SerializeField] private float _movementDistance;
+        [SerializeField] private float _horizontalMovementDistance;
+        [SerializeField] private float _verticalMovementDistance;
         [SerializeField] private float _movementRate;
         [SerializeField] private int _horizontalMovementTicks;
         [SerializeField] private int _verticalMovementTicks;
@@ -52,6 +52,12 @@ namespace Monobehaviors.Entities
 
         private void FixedUpdate()
         {
+            if (_rigidbody2D.position.y <= _gameOverVerticalPos)
+            {
+                _gameWorldStateManager.TriggerGameOver();
+                return;
+            }
+            
             _movementCounter += Time.deltaTime;
 
             if (_movementCounter > _movementRate)
@@ -64,29 +70,22 @@ namespace Monobehaviors.Entities
         private void MoveEnemyShip()
         {
             Vector3 position = _rigidbody2D.position;
-
-            if (_rigidbody2D.position.y <= _gameOverVerticalPos)
-            {
-                _gameWorldStateManager.TriggerGameOver();
-                return;
-            }
-            
             Vector2 targetPos;
             _currentMovementTicks++;
             
             switch (_currentDirection)
             {
                 case MovementDirection.Left:
-                    targetPos = new Vector2(position.x - _movementDistance, position.y);
+                    targetPos = new Vector2(position.x - _horizontalMovementDistance, position.y);
                     CheckChangeDirection(_horizontalMovementTicks, true);
                     break;
                 case MovementDirection.Right:
-                    targetPos = new Vector2(position.x + _movementDistance, position.y);
+                    targetPos = new Vector2(position.x + _horizontalMovementDistance, position.y);
                     CheckChangeDirection(_horizontalMovementTicks, true);
                     break;
                 case MovementDirection.Down:
                 default:
-                    targetPos = new Vector2(position.x, position.y - _movementDistance);
+                    targetPos = new Vector2(position.x, position.y - _verticalMovementDistance);
                     CheckChangeDirection(_verticalMovementTicks, false);
                     break;
             }

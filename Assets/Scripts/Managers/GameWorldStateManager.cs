@@ -1,11 +1,13 @@
 using Data;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 namespace Managers
 {
     public class GameWorldStateManager
     {
+        // local
         private GameWorldState _gameWorldState;
         private Camera _gameplayCamera;
         private UnityAction<int> _updateEnemyUiAction;
@@ -13,6 +15,20 @@ namespace Managers
         
         public GameWorldState GameWorldState => _gameWorldState;
         public Camera GamePlayCamera => _gameplayCamera;
+        
+        // injections
+        private SceneLoader _sceneLoader;
+        private GameResultsData _gameResultsData;
+        
+        [Inject]
+        private void InjectDependencies(
+            SceneLoader sceneLoader,
+            GameResultsData gameResultsData
+        )
+        {
+            _sceneLoader = sceneLoader;
+            _gameResultsData = gameResultsData;
+        }
         
         public void Initialize(Camera gameplayCamera, int enemyCount, UnityAction<int> updateEnemyUi, UnityAction<int> updateScoreUi)
         {
@@ -25,32 +41,36 @@ namespace Managers
             float topLimit = gameplayCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y; // top of screen;
             
             var horizontalScreenLimits = new Vector2(leftLimit.x, rightLimit.x);
-            var verticalGameOverLimit = gameplayCamera.ViewportToWorldPoint(new Vector3(0, 0.1f, 0)).y; // bottom 10% of screen
+            var verticalGameOverLimit = gameplayCamera.ViewportToWorldPoint(new Vector3(0, 0.05f, 0)).y; // bottom 5% of screen
              
             Vector2 verticalLimits = new Vector2(verticalGameOverLimit, topLimit);
             
             _gameWorldState = new GameWorldState(horizontalScreenLimits, verticalLimits, enemyCount);
+            _gameResultsData.Reset();
         }
 
         public void RegisterEnemyDestroyed()
         {
             _gameWorldState.EnemyCount--;
             _updateEnemyUiAction?.Invoke(_gameWorldState.EnemyCount);
-            _gameWorldState.Score += 100;
-            _updateScoreUiAction?.Invoke(_gameWorldState.Score);
+            _gameResultsData.EnemiesDefeated++;
+            _gameResultsData.Score += 100;
+            _updateScoreUiAction?.Invoke(_gameResultsData.Score);
             CheckGameOutcome();
         }
 
         public void TriggerGameOver()
         {
-            Debug.LogError("you lose");
+            _gameResultsData.IsVictory = false;
+            _sceneLoader.LoadScene(GameConstants.GameOverScene);
         }
 
         private void CheckGameOutcome()
         {
             if (_gameWorldState.EnemyCount <= 0)
             {
-                Debug.LogError("you win");
+                _gameResultsData.IsVictory = true;
+                _sceneLoader.LoadScene(GameConstants.GameOverScene);
             }
         }
     }
